@@ -1,0 +1,22 @@
+name: Test Website
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: HTML5 Validator
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: .
+          
+      - name: Check links
+        uses: lycheeverse/lychee-action@v1.8.0
+        with:
+          args: --verbose --no-progress './**/*.html' './**/*.md'
